@@ -10,6 +10,65 @@
 <script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore-compat.js"></script>
 
 <style>
+  /* ページ全体の余白をリセット */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: "MS UI Gothic", "Comic Sans MS", sans-serif;
+      color: #FFFF00;
+      overflow-x: hidden;
+    }
+
+    /* 星空用キャンバスを背景に配置 */
+    #stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at bottom, #000 0%, #000010 100%);
+      z-index: -3;
+    }
+
+    /* 星のきらめき */
+    .star {
+      position: absolute;
+      background: white;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: twinkle 2s infinite alternate;
+    }
+
+    @keyframes twinkle {
+      from { opacity: 0.3; }
+      to { opacity: 1; }
+    }
+
+    /* 月のアニメーション */
+    #moon {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle at 30% 30%, #FFD84D 70%, #C6A200 100%);
+      border-radius: 50%;
+      box-shadow: 0 0 30px rgba(255, 216, 77, 0.8);
+      animation: orbit 60s linear infinite;
+      transform-origin: -200px center; /* 公転の中心 */
+      z-index: -2;
+    }
+
+    @keyframes orbit {
+      0% { transform: rotate(0deg) translateX(200px) rotate(0deg); }
+      100% { transform: rotate(360deg) translateX(200px) rotate(-360deg); }
+    }
+
+
+
 body {
   margin: 0;
   background-color: #000;
@@ -106,7 +165,7 @@ button {
 <body>
 
 <div class="windows95-featured">
-  <div class="windows95-title">💬 スレッド掲示板</div>
+  <div class="windows95-title">💬 各々が書き込め-展示感想チャット-</div>
 
   <div class="windows95-content">
 
