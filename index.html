@@ -1,1 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Caption Exhibition</title>
+
+<script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore-compat.js"></script>
+
+<style>
+body {
+  margin:0;
+  background:#000;
+  color:#00FF00;
+  font-family:"MS UI Gothic",sans-serif;
+}
+
+/* ===== 上部 ===== */
+.header {
+  text-align:center;
+  padding:20px;
+}
+
+.banner {
+  max-width:100%;
+}
+
+.concept {
+  margin-top:15px;
+  font-size:14px;
+  line-height:1.6;
+}
+
+/* ===== グリッド ===== */
+.grid {
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:20px;
+  padding:20px;
+}
+
+@media (max-width:600px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== スレ ===== */
+.thread {
+  border:2px solid #FFF;
+  border-right-color:#808080;
+  border-bottom-color:#808080;
+}
+
+.title {
+  background:#000080;
+  color:#FFFF00;
+  padding:5px;
+  font-weight:bold;
+}
+
+.messages {
+  height:250px;
+  overflow-y:auto;
+  border-top:1px solid #555;
+  padding:5px;
+}
+
+.post {
+  border-bottom:1px dashed #555;
+  padding:4px;
+}
+
+.meta {
+  font-size:10px;
+  color:#666;
+  cursor:pointer;
+}
+
+.children {
+  margin-left:10px;
+  border-left:1px dotted #555;
+  padding-left:5px;
+}
+
+input, textarea {
+  width:100%;
+  background:#111;
+  color:#00FF00;
+  border:1px solid #555;
+  margin-top:3px;
+}
+
+textarea {
+  height:60px;
+}
+
+button {
+  margin-top:3px;
+  width:100%;
+  background:#00FFFF;
+  color:#000;
+  border:none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== ヘッダー ===== -->
+<div class="header">
+  <img src="banner__.jpg" class="banner">
+
+  <div class="concept">
+    展示「各々が回れ」におけるキャプションを、<br>
+    固定されたものではなく、開かれたものとして再考する試みです。<br>
+    各作品に対して、自由にキャプションを書き込んでください。
+  </div>
+</div>
+
+<!-- ===== スレ ===== -->
+<div class="grid">
+
+  <div class="thread" data-thread="thread1">
+    <div class="title">下浦萌香のキャプション</div>
+    <div class="messages"></div>
+    <div class="replyBox"></div>
+    <input placeholder="名前">
+    <textarea placeholder="キャプションを書く..."></textarea>
+    <button>投稿</button>
+  </div>
+
+  <div class="thread" data-thread="thread2">
+    <div class="title">森田健のキャプション</div>
+    <div class="messages"></div>
+    <div class="replyBox"></div>
+    <input placeholder="名前">
+    <textarea placeholder="キャプションを書く..."></textarea>
+    <button>投稿</button>
+  </div>
+
+  <div class="thread" data-thread="thread3">
+    <div class="title">平岡真生のキャプション</div>
+    <div class="messages"></div>
+    <div class="replyBox"></div>
+    <input placeholder="名前">
+    <textarea placeholder="キャプションを書く..."></textarea>
+    <button>投稿</button>
+  </div>
+
+  <div class="thread" data-thread="thread4">
+    <div class="title">松原元のキャプション</div>
+    <div class="messages"></div>
+    <div class="replyBox"></div>
+    <input placeholder="名前">
+    <textarea placeholder="キャプションを書く..."></textarea>
+    <button>投稿</button>
+  </div>
+
+</div>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyDcBai370Y89SP6RdP0AEjPO6tZLBa739E",
+  authDomain: "onoonogamaware.firebaseapp.com",
+  projectId: "onoonogamaware",
+  storageBucket: "onoonogamaware.firebasestorage.app",
+  messagingSenderId: "901688748320",
+  appId: "1:901688748320:web:433e08cb0670e883d44f45"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+document.querySelectorAll(".thread").forEach(threadEl => {
+
+  const threadId = threadEl.dataset.thread;
+  const messagesEl = threadEl.querySelector(".messages");
+  const input = threadEl.querySelector("input");
+  const textarea = threadEl.querySelector("textarea");
+  const button = threadEl.querySelector("button");
+  const replyBox = threadEl.querySelector(".replyBox");
+
+  let replyTarget = null;
+
+  // ===== 受信 =====
+  db.collection("messages")
+    .where("thread","==",threadId)
+    .orderBy("created")
+    .onSnapshot(snapshot => {
+
+      const data = [];
+      snapshot.forEach(doc=>{
+        data.push({id:doc.id,...doc.data()});
+      });
+
+      messagesEl.innerHTML = "";
+
+      const roots = data.filter(m=>!m.parentId);
+
+      roots.forEach(root=>{
+        messagesEl.appendChild(renderThread(root,data));
+      });
+    }, err => {
+      console.error("取得エラー:", err);
+    });
+
+  // ===== 投稿 =====
+  button.onclick = () => {
+
+    const name = input.value.trim();
+    const text = textarea.value.trim();
+
+    if(!text) return;
+
+    if(text.length > 200){
+      alert("200文字以内にしてください");
+      return;
+    }
+
+    const user =
+      name || "匿名_" + Math.random().toString(36).slice(2,6);
+
+    console.log("送信:", text);
+
+    db.collection("messages").add({
+      text,
+      user,
+      thread:threadId,
+      parentId:replyTarget,
+      created: firebase.firestore.FieldValue.serverTimestamp()
+    })
+    .then(()=> {
+      console.log("成功");
+    })
+    .catch(err=>{
+      console.error("失敗:", err);
+      alert("投稿できませんでした");
+    });
+
+    textarea.value="";
+    replyTarget=null;
+    replyBox.textContent="";
+  };
+
+  // ===== ツリー =====
+  function renderThread(node,all){
+
+    const wrap=document.createElement("div");
+
+    const div=document.createElement("div");
+    div.className="post";
+
+    const date=node.created?.toDate
+      ? node.created.toDate().toLocaleString()
+      : "...";
+
+    div.innerHTML=`
+      <div class="meta">@${node.user}・${date}</div>
+      <div>${node.text}</div>
+    `;
+
+    div.querySelector(".meta").onclick=()=>{
+      replyTarget=node.id;
+      replyBox.textContent="返信先: @"+node.user;
+    };
+
+    wrap.appendChild(div);
+
+    const children=all.filter(m=>m.parentId===node.id);
+
+    if(children.length){
+      const box=document.createElement("div");
+      box.className="children";
+
+      children.forEach(c=>{
+        box.appendChild(renderThread(c,all));
+      });
+
+      wrap.appendChild(box);
+    }
+
+    return wrap;
+  }
+
+});
+</script>
+
+</body>
+</html>
