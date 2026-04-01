@@ -99,6 +99,47 @@ body {
   }
 }
 
+/* ===文字サイズ微調整用= */
+.big {
+  font-size: 22px;
+}
+
+.medium {
+  font-size: 16px;
+}
+
+.small {
+  font-size: 12px;
+}
+/* ==== */
+
+
+/* ===== チャット欄だけ白テーマ ===== */
+.messages {
+  background: #ffffff;
+  color: #000000;
+}
+
+.post {
+  color: #000000;
+  border-bottom: 1px dashed #999;
+}
+
+.meta {
+  color: #555;
+}
+
+.children {
+  border-left: 1px dotted #999;
+}
+
+.messages {
+  background: #ffffff;
+  padding:8px;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+}
+
+
 /* ===== スレ ===== */
 .thread {
   border:2px solid #FFF;
@@ -107,8 +148,8 @@ body {
 }
 
 .title {
-  background:#000080;
-  color:#FFFF00;
+  background:#ffffff;
+  color:#000000;
   padding:5px;
   font-weight:bold;
 }
@@ -139,9 +180,9 @@ body {
 
 input, textarea {
   width:100%;
-  background:#111;
-  color:#00FF00;
-  border:1px solid #555;
+  background:#e7e5e5;
+  color:#000000;
+  border:1px solid #d8d8d8;
   margin-top:3px;
 }
 
@@ -152,7 +193,7 @@ textarea {
 button {
   margin-top:3px;
   width:100%;
-  background:#00FFFF;
+  background:#00ff7b;
   color:#000;
   border:none;
 }
@@ -211,7 +252,16 @@ button {
 <div class="grid">
 
   <div class="thread" data-thread="thread1">
-    <div class="title">下浦萌香のキャプション</div>
+    <div class="title">
+    <div class="caption-text">
+   　 <div class="medium">下浦萌香</div>
+  <div class="small">Moeka Shimoura</div><br>
+  <div class="big">デラハジリ</div>
+  <div class="small">アーティスト・ラン・スペース／ 2021-</div> 　
+</div>
+
+
+    </div>
     <div class="messages"></div>
     <div class="replyBox"></div>
     <input placeholder="名前">
@@ -219,8 +269,17 @@ button {
     <button>投稿</button>
   </div>
 
+
   <div class="thread" data-thread="thread2">
-    <div class="title">森田健のキャプション</div>
+    <div class="title">
+      <div class="caption-text">
+  　  <div class="medium">森田健</div>
+  <div class="small">Ken Morita</div><br>
+  <div class="big">blog わたしたちは分かちあいません</div>
+  <div class="small">Web サイト／ 2026  </div>　
+</div>
+
+</div>
     <div class="messages"></div>
     <div class="replyBox"></div>
     <input placeholder="名前">
@@ -229,7 +288,16 @@ button {
   </div>
 
   <div class="thread" data-thread="thread3">
-    <div class="title">平岡真生のキャプション</div>
+    <div class="title">
+            <div class="caption-text">
+   　 <div class="medium">平岡真生</div>
+  <div class="small">Mao Hiraoka</div><br>
+  <div class="big">ここを出る、地面から離れる、できるだけ遠くに行く</div>
+  <div class="small">映像、泥団子、月から飛来してきた隕石、自宅のカーポート、iMac G5（2004 年）／ 2026</div>　
+</div>
+
+
+    </div>
     <div class="messages"></div>
     <div class="replyBox"></div>
     <input placeholder="名前">
@@ -237,14 +305,29 @@ button {
     <button>投稿</button>
   </div>
 
+
+      
   <div class="thread" data-thread="thread4">
-    <div class="title">松原元のキャプション</div>
+    <div class="title">
+            <div class="caption-text">
+　<div class="medium">松原元</div>
+  <div class="small">Hajime Matsubara</div><br>
+  <div class="big">キャリ男</div>
+  <div class="small">写真、ビデオ／ 2025</div>
+    <div class="big">無題</div>
+  <div class="small">ミクストメディア／ 2025-2026</div> 
+   <div class="big">無題</div>
+  <div class="small">ビデオ／ 2025</div>　
+</div>
+
+    </div>
     <div class="messages"></div>
     <div class="replyBox"></div>
     <input placeholder="名前">
     <textarea placeholder="キャプションを書く..."></textarea>
     <button>投稿</button>
   </div>
+
 
 </div>
 
