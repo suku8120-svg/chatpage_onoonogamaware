@@ -163,8 +163,13 @@ body {
 
 .post {
   border-bottom:1px dashed #555;
-  padding:4px;
+  white-space: pre-wrap; /* ←これ追加 */
+  padding: 2px 3px;
+  font-size: 12.5px;
+  line-height: 1.1;
 }
+
+
 
 .meta {
   font-size:10px;
@@ -385,8 +390,8 @@ document.querySelectorAll(".thread").forEach(threadEl => {
 
     if(!text) return;
 
-    if(text.length > 200){
-      alert("200文字以内にしてください");
+    if(text.length > 1000){
+      alert("1000文字以内にしてください");
       return;
     }
 
