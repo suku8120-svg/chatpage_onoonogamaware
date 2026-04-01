@@ -28,9 +28,61 @@ body {
 }
 
 .concept {
+  margin:20px auto;
+  max-width:800px;
+  padding:15px;
+
+  border:2px dashed #00FF00;   /* 点線枠 */
+  background:#001100;          /* うっすら緑背景 */
+  
+  font-size:16px;
+  line-height:1.7;
+  text-align: center;
+
+  box-shadow: 0 0 10px #00FF00 inset; /* 内側発光 */
+}
+
+/* 見出しっぽくする */
+.concept-title {
+  font-weight:bold;
+  color:#FFFF00;
+  margin-bottom:10px;
+  border-bottom:1px solid #00FF00;
+  padding-bottom:5px;
+}
+
+/* 注意書き強調 */
+.rule-title {
   margin-top:15px;
-  font-size:14px;
-  line-height:1.6;
+  color:#00FFFF;
+  font-weight:bold;
+}
+
+/* リストを見やすく */
+.rule-item {
+  margin-top:8px;
+  padding-left:10px;
+  border-left:2px solid #00FF00;
+}
+
+.rule-box {
+  margin: 10px auto;   /* ←これが中央寄せの本体 */
+  padding:8px 10px;
+
+  border:1px dashed #FF0000;
+  background:#0a0000;
+
+  color:#FF5555;
+  font-size:12px;
+  line-height:1.4;
+
+  max-width:600px;
+
+  text-align:left;     /* ←中身は読みやすく左 */
+}
+
+.rule-box strong {
+  color:#FF0000;
 }
 
 /* ===== グリッド ===== */
@@ -114,10 +166,45 @@ button {
   <img src="banner__.png" class="banner">
 
   <div class="concept">
-    作品のそばに置かれる「キャプション」は、<br>単なる説明文ではなく、作品と出会うための入口です。<br>本ワークショップでは、キャプションを「正解を書くもの」としてではなく、「作品を見て感じたことを誰かに説明するための言葉」として捉え直します。<br>
-作品をよく見て、自分の見方から生まれた言葉を育て、短い文章を書きながら、ひとつではない見方に触れていきます。<br>あなたの感想や違和感もまた、誰かにとってのキャプションになるかもしれません。<br>
-キャプションを書くことを通して、作品の見え方が少しずつ変わっていくこと、また他人の言葉によって自分の見方が揺さぶられることを体験します。<br>
+
+  <div class="concept-title">
+  ▶ 掲示板について
   </div>
+
+ここは、展示「各々が回れ」を見た鑑賞者が参加する掲示板だ。<br>
+キャプションは単なる説明ではなく、作品と出会うための入口である。<br>
+この場ではそれを、「正解」ではなく「誰かに伝えるための言葉」として捉え直す。<br>
+自分の見方から生まれた言葉を書き、ひとつではない視点に触れていく。<br>
+君の違和感もまた、誰かにとってのキャプションになるかもしれない。<br>
+各々が書き込め。自由に。<br>
+
+<br>
+
+※企画の大野高輝が投稿にコメントしたり、キャプションを更新する場合があります。<br>
+
+<div class="rule-box">
+
+<strong>[キャプションを書く上での注意事項]</strong><br>
+
+・作品の「正しい答え」を決めつけない<br>
+ひとつの解釈だけが正しいように書くのではなく、あくまで自分の見方として言葉にする。<br>
+<br>
+
+・見えていないことを断定しすぎない<br>
+作者の気持ちや意図を、根拠なく言い切らないようにする。自分が見たこと、感じたことから書き始める。<br>
+<br>
+
+・他者を傷つける言葉にしない<br>
+感想は自由だが、作品や作家、ほかの参加者を一方的に否定したり、人格を攻撃したりする言葉は避ける。<br>
+<br>
+
+・「うまく書く」より「よく見る」ことを大切にする<br>
+きれいにまとめることよりも、何に引っかかったのか、なぜ気になったのかを丁寧に見つけることを重視する。<br>
+<br>
+
+</div>
+
+</div>
 </div>
 
 <!-- ===== スレ ===== -->
